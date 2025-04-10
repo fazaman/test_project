@@ -101,4 +101,29 @@ style.textContent = `
         color: #3498db;
     }
 `;
-document.head.appendChild(style); 
+document.head.appendChild(style);
+
+// Theme Switcher
+const themeToggle = document.getElementById('theme-toggle');
+const bodyElement = document.body;
+
+// Check for saved theme preference or prefer-color-scheme
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+const savedTheme = localStorage.getItem('theme');
+
+// Set initial theme
+if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
+    bodyElement.classList.add('dark-theme');
+    themeToggle.checked = true;
+}
+
+// Toggle theme when switch is clicked
+themeToggle.addEventListener('change', function() {
+    if (this.checked) {
+        bodyElement.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        bodyElement.classList.remove('dark-theme');
+        localStorage.setItem('theme', 'light');
+    }
+}); 

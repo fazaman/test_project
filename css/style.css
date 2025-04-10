@@ -1,4 +1,28 @@
 /* Global Styles */
+:root {
+    --primary-color: #3498db;
+    --primary-dark: #2980b9;
+    --text-color: #333;
+    --bg-color: #f9f9f9;
+    --card-bg: #fff;
+    --header-bg: #fff;
+    --footer-bg: #333;
+    --footer-text: #fff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark-theme {
+    --primary-color: #4fa3e0;
+    --primary-dark: #3498db;
+    --text-color: #eee;
+    --bg-color: #1a1a1a;
+    --card-bg: #2a2a2a;
+    --header-bg: #2a2a2a;
+    --footer-bg: #111;
+    --footer-text: #eee;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -8,8 +32,9 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f9f9f9;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .container {
@@ -28,7 +53,7 @@ h1, h2, h3 {
 
 a {
     text-decoration: none;
-    color: #333;
+    color: var(--text-color);
 }
 
 ul {
@@ -37,7 +62,7 @@ ul {
 
 .btn {
     display: inline-block;
-    background-color: #3498db;
+    background-color: var(--primary-color);
     color: #fff;
     padding: 12px 24px;
     border-radius: 5px;
@@ -45,22 +70,100 @@ ul {
 }
 
 .btn:hover {
-    background-color: #2980b9;
+    background-color: var(--primary-dark);
 }
 
 .highlight {
-    color: #3498db;
+    color: var(--primary-color);
+}
+
+/* Theme Switcher */
+.theme-switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    margin-left: 20px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+/* Sun and moon icons */
+.slider:after {
+    content: '🌙';
+    font-size: 14px;
+}
+
+.slider:before {
+    content: '☀️';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f39c12;
+    font-size: 14px;
+}
+
+input:checked + .slider {
+    background-color: #2c3e50;
+}
+
+input:checked + .slider:before {
+    transform: translateX(30px);
+    background-color: #34495e;
+    content: '🌙';
+    color: white;
+}
+
+/* Animation for theme transition */
+body {
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.theme-switch .slider:before {
+    transition: transform 0.4s ease, background-color 0.4s ease;
 }
 
 /* Header */
 header {
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: var(--header-bg);
+    box-shadow: 0 2px 10px var(--shadow-color);
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 100;
+    transition: background-color 0.3s;
 }
 
 header .container {
@@ -68,6 +171,11 @@ header .container {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
 }
 
 header h1 {
@@ -88,8 +196,8 @@ nav ul li a {
     transition: color 0.3s;
 }
 
-nav ul li a:hover {
-    color: #3498db;
+nav ul li a:hover, nav ul li a.active {
+    color: var(--primary-color);
 }
 
 /* Hero Section */
@@ -127,20 +235,21 @@ nav ul li a:hover {
 
 .skills {
     flex: 1;
-    background-color: #fff;
+    background-color: var(--card-bg);
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px var(--shadow-color);
+    transition: background-color 0.3s;
 }
 
 .skills ul li {
     padding: 10px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
 }
 
 /* Projects Section */
 #projects {
-    background-color: #f4f9fd;
+    background-color: var(--bg-color);
 }
 
 .project-grid {
@@ -150,11 +259,11 @@ nav ul li a:hover {
 }
 
 .project-card {
-    background-color: #fff;
+    background-color: var(--card-bg);
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
+    box-shadow: 0 5px 15px var(--shadow-color);
+    transition: transform 0.3s, background-color 0.3s;
 }
 
 .project-card:hover {
@@ -187,7 +296,8 @@ nav ul li a:hover {
 
 /* Contact Section */
 #contact {
-    background-color: #fff;
+    background-color: var(--card-bg);
+    transition: background-color 0.3s;
 }
 
 form {
@@ -211,6 +321,9 @@ input, textarea {
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
 }
 
 textarea {
@@ -224,9 +337,10 @@ button {
 
 /* Footer */
 footer {
-    background-color: #333;
-    color: #fff;
+    background-color: var(--footer-bg);
+    color: var(--footer-text);
     padding: 40px 0;
+    transition: background-color 0.3s;
 }
 
 footer .container {
@@ -245,6 +359,10 @@ footer .container {
 @media screen and (max-width: 768px) {
     header .container {
         flex-direction: column;
+    }
+    
+    .header-right {
+        margin-top: 20px;
     }
     
     nav ul {
